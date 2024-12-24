@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React, { useMemo } from 'react';
 
 function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantity, clearCart, handlePayment }) {
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const isEmpty = useMemo(() => cart.length === 0, [cart]);
     const totalCost = useMemo(() => {
@@ -10,12 +10,8 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
     }, [cart]);
 
     const handleRedirectToPayment = () => {
-        if (handlePayment) {
-            handlePayment(); 
-            navigate("/MetodoPago"); 
-        } else {
-            console.error('handlePayment no está definido');
-        }
+        // Paso el carrito y el total al navegar a MetodoPago
+        navigate("/MetodoPago", { state: { cart, totalCost } });
     };
 
     return (
@@ -30,7 +26,6 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
                     <nav className="col-md-6 a mt-5 d-flex align-items-start justify-content-end">
                         <div className="carrito">
                             <img className="img-fluid" src="/img/carrito.png" alt="imagen carrito" />
-
                             <div id="carrito" className="bg-white p-3">
                                 {isEmpty ? (
                                     <p className="text-center">El carrito está vacío</p>
@@ -100,13 +95,12 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
                                     Vaciar Carrito
                                 </button>
                                 {!isEmpty && (
-                                  <a
-                                  href="/MetodoPago"
-                                  className="btn btn-success w-100 mt-3 p-2"
-                              >
-                                  Pagar
-                              </a>
-                              
+                                    <button
+                                        className="btn btn-success w-100 mt-3 p-2"
+                                        onClick={handleRedirectToPayment}
+                                    >
+                                        Pagar
+                                    </button>
                                 )}
                             </div>
                         </div>

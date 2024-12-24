@@ -1,11 +1,11 @@
-/* Estilos para el modal */
+/* Contenedor principal para dividir en dos columnas */
 .modal {
     width: fit-content;
     height: fit-content;
     background: #FFFFFF;
     box-shadow: 0px 187px 75px rgba(0, 0, 0, 0.01), 0px 105px 63px rgba(0, 0, 0, 0.05), 0px 47px 47px rgba(0, 0, 0, 0.09), 0px 12px 26px rgba(0, 0, 0, 0.1), 0px 0px 0px rgba(0, 0, 0, 0.1);
     border-radius: 26px;
-    max-width: 450px;
+    max-width: 900px; /* Ajustar según tus necesidades */
     
     /* Para centrar el modal en la pantalla */
     position: fixed;
@@ -13,13 +13,19 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+    padding: 20px;
+    display: flex;
+    flex-direction: row; /* Organiza en columnas */
+    gap: 20px; /* Espacio entre las columnas */
 }
 
-.form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* Estilo para el detalle de la compra */
+.order-summary {
+    flex: 1; /* Ocupa la mitad del espacio */
     padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
 .payment--options {
@@ -28,7 +34,7 @@
     grid-template-columns: 33% 34% 33%;
     gap: 20px;
     padding: 10px;
-}
+  }
 
 .payment--options button {
     height: 55px;
@@ -37,41 +43,21 @@
     padding: 0;
     border: 0;
     outline: none;
-}
-
-.payment--options button svg {
+  }
+  
+  .payment--options button svg {
     height: 18px;
-}
-
-.payment--options button:last-child svg {
+  }
+  
+  .payment--options button:last-child svg {
     height: 22px;
-}
+  }
 
 .separator {
-    width: calc(100% - 20px);
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 10px;
-    color: #8B8E98;
-    margin: 0 10px;
-}
-
-.separator > p {
-    word-break: keep-all;
-    display: block;
-    text-align: center;
-    font-weight: 600;
-    font-size: 11px;
-    margin: auto;
-}
-
-.separator .line {
-    display: inline-block;
     width: 100%;
     height: 1px;
-    border: 0;
     background-color: #e8e8e8;
-    margin: auto;
+    margin: 20px 0;
 }
 
 .credit-card-info--form {
@@ -92,10 +78,6 @@
     display: grid;
     grid-template-columns: 4fr 2fr;
     gap: 15px;
-}
-
-.split input {
-    width: 100%;
 }
 
 .input_label {
@@ -137,11 +119,4 @@
 
 .purchase--btn:hover {
     box-shadow: 0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #0000003a;
-}
-
-/* Reset input number styles */
-.input_field::-webkit-outer-spin-button,
-.input_field::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
