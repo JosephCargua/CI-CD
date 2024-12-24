@@ -10,7 +10,6 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
     }, [cart]);
 
     const handleRedirectToPayment = () => {
-        // Paso el carrito y el total al navegar a MetodoPago
         navigate("/MetodoPago", { state: { cart, totalCost } });
     };
 
