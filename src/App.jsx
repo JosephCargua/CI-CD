@@ -3,7 +3,7 @@ import Header from "./Components/Header";
 import { useState, useEffect } from "react";
 import { db } from "./data/db";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MetodoPago from "./MetodoPago";
+import MetodoPago from './MetodoPago';  
 
 function App() {
     const initialCart = () => {
@@ -71,6 +71,10 @@ function App() {
         setCart([]);
     };
 
+    const handlePayment = () => {
+      // Lógica para manejar el pago, si es necesario
+      console.log("Realizando el pago...");
+  };
     return (
         <Router>
             <Routes>
@@ -84,6 +88,7 @@ function App() {
                                 increaseQuantity={increaseQuantity}
                                 decreaseQuantity={decreaseQuantity}
                                 clearCart={clearCart}
+                                handlePayment={handlePayment}
                             />
                             <main className="container-xl mt-5">
                                 <h2 className="text-center">Nuestra Colección de Videojuegos PS5</h2>
@@ -107,7 +112,7 @@ function App() {
                         </>
                     }
                 />
-            <Route path="/MetodoPago" element={<MetodoPago />} />
+                <Route path="/MetodoPago" element={<MetodoPago />} />
             </Routes>
         </Router>
     );

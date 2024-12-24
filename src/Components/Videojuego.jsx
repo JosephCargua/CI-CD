@@ -6,7 +6,7 @@ export default function Videojuego({ videojuego, addToCart }) {
    return (
        <div className="col-md-6 col-lg-4 my-4 row align-items-center">
            <div className="col-4">
-               {/* Imagen ajustada con una altura más pequeña */}
+               
                <img 
                    className="img-fluid d-block mx-auto" 
                    style={{ height: '150px', objectFit: 'cover' }} 
