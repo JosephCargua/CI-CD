@@ -91,7 +91,7 @@ function App() {
                                 handlePayment={handlePayment}
                             />
                             <main className="container-xl mt-5">
-                                <h2 className="text-center">Nuestra Colección de Videojuegos PS5</h2>
+                                <h2 className="text-center"></h2>
                                 <div className="row mt-5">
                                     {data.map((videojuego) => (
                                         <Videojuego
