@@ -1,13 +1,22 @@
-import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+import React, { useMemo } from 'react';
 
-function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantity, clearCart }) {
-   
+function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantity, clearCart, handlePayment }) {
+    const navigate = useNavigate(); 
+
     const isEmpty = useMemo(() => cart.length === 0, [cart]);
-
-    // Aseguramos que se recalcule el costo total cuando el carrito cambie
     const totalCost = useMemo(() => {
-        return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    }, [cart]);  // Dependencia de cart para que se recalculen los cálculos cuando cambie el carrito
+        return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    }, [cart]);
+
+    const handleRedirectToPayment = () => {
+        if (handlePayment) {
+            handlePayment(); 
+            navigate("/MetodoPago"); 
+        } else {
+            console.error('handlePayment no está definido');
+        }
+    };
 
     return (
         <header className="py-5 header">
@@ -41,24 +50,39 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
                                                 {cart.map((videojuego) => (
                                                     <tr key={videojuego.id}>
                                                         <td>
-                                                            <img className="img-fluid" src={`/img/${videojuego.image}.png`} 
-                                                                alt="imagen videojuego" />
+                                                            <img
+                                                                className="img-fluid"
+                                                                src={`/img/${videojuego.image}.png`}
+                                                                alt="imagen videojuego"
+                                                            />
                                                         </td>
                                                         <td>{videojuego.name}</td>
                                                         <td className="fw-bold">
-                                                            ${videojuego.price.toFixed(2)}  {/* Asegúrate de mostrar siempre 2 decimales */}
+                                                            ${videojuego.price.toFixed(2)}
                                                         </td>
                                                         <td className="flex align-items-start gap-4">
-                                                            <button type="button" className="btn btn-dark" onClick={() => decreaseQuantity(videojuego.id)}>
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-dark"
+                                                                onClick={() => decreaseQuantity(videojuego.id)}
+                                                            >
                                                                 -
                                                             </button>
                                                             {videojuego.quantity}
-                                                            <button type="button" className="btn btn-dark" onClick={() => increaseQuantity(videojuego.id)}>
+                                                            <button
+                                                                type="button"
+                                                                className="btn btn-dark"
+                                                                onClick={() => increaseQuantity(videojuego.id)}
+                                                            >
                                                                 +
                                                             </button>
                                                         </td>
                                                         <td>
-                                                            <button className="btn btn-danger" type="button" onClick={() => removeElementFromCart(videojuego.id)}>
+                                                            <button
+                                                                className="btn btn-danger"
+                                                                type="button"
+                                                                onClick={() => removeElementFromCart(videojuego.id)}
+                                                            >
                                                                 X
                                                             </button>
                                                         </td>
@@ -67,17 +91,30 @@ function Header({ cart, removeElementFromCart, increaseQuantity, decreaseQuantit
                                             </tbody>
                                         </table>
 
-                                        <p className="text-end">Total a pagar: <span className="fw-bold">${totalCost.toFixed(2)}</span></p>
+                                        <p className="text-end">
+                                            Total a pagar: <span className="fw-bold">${totalCost.toFixed(2)}</span>
+                                        </p>
                                     </>
                                 )}
-                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>Vaciar Carrito</button>
+                                <button className="btn btn-dark w-100 mt-3 p-2" onClick={clearCart}>
+                                    Vaciar Carrito
+                                </button>
+                                {!isEmpty && (
+                                  <a
+                                  href="/MetodoPago"
+                                  className="btn btn-success w-100 mt-3 p-2"
+                              >
+                                  Pagar
+                              </a>
+                              
+                                )}
                             </div>
                         </div>
                     </nav>
                 </div>
             </div>
         </header>
-    )
+    );
 }
 
 export default Header;
